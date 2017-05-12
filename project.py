@@ -212,7 +212,7 @@ def gconnect():
     flash("you are now logged in as %s" % login_session['username'])
     return output
 
-# Disconnect based on provider - Revoke a current user's token and reset their login_session #######
+# Disconnect based on provider - Revoke a current user's token and reset their login_session #####
 
 
 @app.route('/disconnect')
@@ -238,7 +238,7 @@ def disconnect():
             flash("You were not logged in")
             return redirect(url_for('showHome'))
 
-# Disconnect if using google
+# Disconnect if using google ##################################################################
 @app.route('/gdisconnect')
 def gdisconnect():
     # Only disconnect a connected user.
@@ -259,7 +259,7 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-# Disconnect if using facebook
+# Disconnect if using facebook ###############################################################
 @app.route('/fbdisconnect')
 def fbdisconnect():
     facebook_id = login_session['facebook_id']
@@ -288,8 +288,6 @@ def showApps():
     print 'check 1'
     apps = session.query(Application).all()
     return render_template(html_file, apps=apps, app=app, base=base)
-
-
 
 #Handler for creating a new app ###########################################################
 
@@ -334,7 +332,7 @@ def deleteApp(id):
         return render_template(html, base=base, app=app)
 
 
-# Handler for editing an app
+# Handler for editing an app ##############################################################
 
 @app.route('/ubuntuapp/apps/<int:id>/edit', methods=['GET', 'POST'])
 def editApp(id):
@@ -362,10 +360,8 @@ def editApp(id):
         print app.name
         return render_template(html, base=base, app=app)
 
-
-
-
 ############################################################################################
+
 
 @app.route('/ubuntuapps/apps/myapps')
 def myApps():
@@ -411,32 +407,15 @@ def showFixes():
 
 # JSON APIs to view Restaurant Information ###########################################################################
 
+
 @app.route('/ubuntuapp/<int:id>/apps/JSON')
 def showAppJSON(id):
     catalog = session.query(Application).filter_by(id=id).all()
     return jsonify(ItemCatalog=[i.serialize for i in catalog])
-#    return jsonify(CategoryApps=[a.serialize for a in apps])
-
-
-
-
-
-#@app.route('/categories/JSON')
-#def categoriesJSON():
-#    categories = session.query(Category).all()
-#    return jsonify(categories=[c.serialize for c in categories])
-
-
-
-
-
-
-
-
-
-
 
 ####################################################################################################
+
+
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
