@@ -1,0 +1,16 @@
+{% extends base %}
+{% block content %}
+
+media.html
+
+{% for app in apps: %}
+<div class="apps-apps">
+  Name: {{ app.name }} <br>
+  Description: {{ app.description }} <br>
+  Command: {{app.aptget}} <br>
+  Repository: {{app.repository}} <br>
+  Category: {{app.category}} <br>
+{% endfor %}
+
+
+{% endblock %}

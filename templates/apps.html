@@ -1,0 +1,22 @@
+{% extends base %}
+{% block content %}
+apps.html
+
+
+{% for app in apps: %}
+<div class="apps-apps">
+  Name: {{ app.name }} <br>
+  Description: {{ app.description }} <br>
+  Command: {{app.aptget}} <br>
+  Repository: {{app.repository}} <br>
+  Category: {{app.category}} <br>
+  <a href="/ubuntuapp/apps/{{app.id}}/edit">Edit App</a> | <a href="/ubuntuapp/apps/{{app.id}}/delete">Delete App</a>
+
+  <hr>
+</div>
+<p>
+{% endfor %}
+{% endblock %}
+<!--
+
+-->

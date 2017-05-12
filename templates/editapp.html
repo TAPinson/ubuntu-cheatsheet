@@ -1,0 +1,42 @@
+{% extends base %}
+{% block content %}
+ editapp.html
+
+ <form action="#" method = "post">
+    You are editing the app: <h2>{{app.name}}</h2> <p>
+      
+      <label for="name">Description:</label>
+      <input type ="text" maxlength="250" class="form-control" name="description" placeholder="{{app.description}}"><p>
+
+      <label for="name">Command:</label>
+      <input type ="text" maxlength="250" class="form-control" name="command" placeholder="{{app.aptget}}"><p>
+
+      <label for="name">Repository:</label>
+      <input type ="text" maxlength="250" class="form-control" name="repository" placeholder="{{app.repository}}"><p>
+
+      <div class="radio">
+        <label>
+          <input type="radio" name="category" id="media" value="media">media
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="category" id="development" value="development">development
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="category" id="tools" value="tools">Tools / Utilities
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="category" id="fixes" value="fixes">fixes
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default" id="submit" type="submit">
+      <span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Update</button>
+    </div>
+
+ </form>
+{% endblock %}

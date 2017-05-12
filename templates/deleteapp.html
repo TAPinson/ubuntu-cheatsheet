@@ -1,0 +1,10 @@
+{% extends base %}
+{% block content %}
+ deleteapp.html
+
+ <form action="#" method = "post">
+    You are about to delete the app: <h2>{{app.name}}</h2> <p>
+    It cannot be undone!
+    <input type="Submit" value="confirm">
+ </form>
+{% endblock %}

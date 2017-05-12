@@ -1,0 +1,37 @@
+body {
+  display: block;
+  margin: 10px;
+}
+
+.newappform {
+  padding: 5%;
+}
+
+.newapp-appname {
+ margin-bottom: 1%;
+}
+
+.newapp-repository {
+  margin-bottom: 1%;
+}
+
+.newapp-aptget {
+  margin-bottom: 1%;
+}
+
+.newapp-description {
+  margin-bottom: 1%;
+}
+
+.newapp-categories {
+  margin-left: 2%;
+}
+
+.newapp-submit {
+  margin-left: 3%;
+}
+
+
+.apps-apps {
+  
+}
