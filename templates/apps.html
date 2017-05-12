@@ -1,8 +1,14 @@
 {% extends base %}
 {% block content %}
-apps.html
 
 
+<div class="categories-categories">
+  <a class="categories-media" href="/apps/media"> Media </a> |
+  <a class="categories-development" href="/apps/development"> Development </a> |
+  <a class="categories-tools" href="/apps/tools"> Tools / Utilities </a> |
+  <a class="categories-fixes" href="/apps/fixes"> Fixes </a>
+</div>
+<p>
 {% for app in apps: %}
 <div class="apps-apps">
   Name: {{ app.name }} <br>

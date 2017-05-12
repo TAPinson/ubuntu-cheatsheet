@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
-from database_setup import Base, Application, Category, User
+from database_setup import Base, Application, User
 import random
 import string
 import httplib2
@@ -273,15 +273,14 @@ def fbdisconnect():
 # Render the homepage #######################################################################
 
 
-@app.route('/')
-@app.route('/ubuntuapp/')
+
 def showHome():
     # categories = session.query(Category).order_by(asc(Category.name))
     return render_template(base)
 
 ############################################################################################
-
-
+@app.route('/')
+@app.route('/ubuntuapp/')
 @app.route('/ubuntuapp/apps')
 def showApps():
     html_file = 'apps.html'
@@ -368,11 +367,6 @@ def myApps():
     html_file = 'myapps.html'
     return render_template(html_file, base=base)
 
-
-@app.route('/categories')
-def showCategories():
-    html_file = 'categories.html'
-    return render_template(html_file, base=base)
 
 
 # Handlers for viewing apps by category ################################################################################

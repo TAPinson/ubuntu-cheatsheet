@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
      </script>
      <script src="//apis.google.com/js/platform.js?onload=start"> </script>
   <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}" />
-  <h2><title class="app-title-head">/Ubuntu/Apps/</title></h2>
-
+  <title class="app-title-head">/Ubuntu/Apps/</title>
 </head>
 
 <body>
@@ -20,10 +17,6 @@
 
       <div class="home-options">
           <a class="home-link" href="/ubuntuapp">Home</a>
-          |
-          <a class="apps-link" href="/ubuntuapp/apps">Apps</a>
-          |
-
           |
           {%if 'username' not in session %}
           <a class="login-link" href="/login">login</a>
@@ -36,18 +29,7 @@
           (<a class="login-link" href="/disconnect">logout</a>) <a class="my-apps" href="/ubuntuapps/apps/myapps">My Apps </a>
           {% endif %}
       </div>
-      <p>
-        <p>
-        <div class="categories-categories">
-          <a class="categories-media" href="/apps/media"> Media </a> |
-          <a class="categories-development" href="/apps/development"> Development </a> |
-          <a class="categories-tools" href="/apps/tools"> Tools / Utilities </a> |
-          <a class="categories-fixes" href="/apps/fixes"> Fixes </a>
-        </div>
-        <p>
-
-  <hr class="page-divider"><br>
-  ubuntuapps.html
+          <br>
   <p>
   {{ categories }}
   <p>

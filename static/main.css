@@ -1,8 +1,43 @@
 body {
   display: block;
   margin: 10px;
+  max-width: 90%;
 }
 
+.categories-categories {
+  margin-left: 15%;
+
+}
+
+.main-title {
+  margin-left: 45%;
+  margin-right: 40%;
+  font-size: 24px;
+  background-color: yellow;
+  text-align: center;
+  width: 100%;
+}
+
+.home-options {
+  position: absolute;
+  right: 25%;
+  top: 5%;
+}
+
+
+.apps-apps {
+  margin-left: 15%;
+}
+
+
+
+
+
+
+
+
+
+/* newapp.html */
 .newappform {
   padding: 5%;
 }
@@ -31,7 +66,8 @@ body {
   margin-left: 3%;
 }
 
+/* end newapp.html*/
 
 .apps-apps {
-  
+
 }
