@@ -1,10 +1,11 @@
 {% extends base %}
 {% block content %}
- deleteapp.html
 
- <form action="#" method = "post">
-    You are about to delete the app: <h2>{{app.name}}</h2> <p>
-    It cannot be undone!
-    <input type="Submit" value="confirm">
+ <form action="#" method = "post" class="deleteapp-form">
+    You are about to delete the app:<br>
+    <div class="deleteapp-appname">{{app.name}}</div>
+    It cannot be undone!<br>
+    <input type="Submit" class="deleteapp-button" value="confirm">
  </form>
+
 {% endblock %}

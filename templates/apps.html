@@ -2,12 +2,6 @@
 {% block content %}
 
 
-<div class="categories-categories">
-  <a class="categories-media" href="/apps/media"> Media </a> |
-  <a class="categories-development" href="/apps/development"> Development </a> |
-  <a class="categories-tools" href="/apps/tools"> Tools / Utilities </a> |
-  <a class="categories-fixes" href="/apps/fixes"> Fixes </a>
-</div>
 <p>
 {% for app in apps: %}
 <div class="apps-apps">
@@ -16,12 +10,17 @@
   Command: {{app.aptget}} <br>
   Repository: {{app.repository}} <br>
   Category: {{app.category}} <br>
-  <a href="/ubuntuapp/apps/{{app.id}}/edit">Edit App</a> | <a href="/ubuntuapp/apps/{{app.id}}/delete">Delete App</a>
-
-  <hr>
+  {% if contentcreator == logged_user: %}
+    <div class="apps-applinks">
+      <a href="/ubuntuapp/apps/{{app.id}}/edit" class="categories-edit">Update App</a>
+      |
+      <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
+    </div>
+  {% endif %}
 </div>
-<p>
+
 {% endfor %}
+
 {% endblock %}
 <!--
 

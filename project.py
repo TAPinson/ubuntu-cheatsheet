@@ -11,7 +11,7 @@ import string
 import httplib2
 import json
 import requests
-
+import time
 
 app = Flask(__name__)
 
@@ -54,7 +54,7 @@ def getUserID(email):
 
 
 # Create anti-forgery state token
-@app.route('/login')
+@app.route('/ubuntuapp/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
@@ -212,34 +212,13 @@ def gconnect():
     flash("you are now logged in as %s" % login_session['username'])
     return output
 
-# Disconnect based on provider - Revoke a current user's token and reset their login_session #####
 
 
-@app.route('/disconnect')
-def disconnect():
-    if 'provider' in login_session:
-        if login_session['provider'] == 'google':
-            gdisconnect()
-            print login_session['gplus_id']
-            del login_session['gplus_id']
-            # print login_session['credentials']
-            # del login_session['credentials']
-        if login_session['provider'] == 'facebook':
-            fbdisconnect()
-            del login_session['facebook_id']
-            del login_session['username']
-            del login_session['email']
-            del login_session['picture']
-            del login_session['user_id']
-            del login_session['provider']
-            flash("You have successfully been logged out.")
-            return redirect(url_for('showHome'))
-        else:
-            flash("You were not logged in")
-            return redirect(url_for('showHome'))
+
+
 
 # Disconnect if using google ##################################################################
-@app.route('/gdisconnect')
+@app.route('/ubuntuapp/gdisconnect')
 def gdisconnect():
     # Only disconnect a connected user.
     credentials = login_session.get('credentials')
@@ -260,6 +239,8 @@ def gdisconnect():
         return response
 
 # Disconnect if using facebook ###############################################################
+
+
 @app.route('/fbdisconnect')
 def fbdisconnect():
     facebook_id = login_session['facebook_id']
@@ -273,26 +254,22 @@ def fbdisconnect():
 # Render the homepage #######################################################################
 
 
-
-def showHome():
-    # categories = session.query(Category).order_by(asc(Category.name))
-    return render_template(base)
-
-############################################################################################
 @app.route('/')
 @app.route('/ubuntuapp/')
 @app.route('/ubuntuapp/apps')
 def showApps():
+    #### HIDING THESE BUTTONS SHOULD QUERY SIMILARLY TO THE MYAPPS FUNCTION ###
     html_file = 'apps.html'
-    print 'check 1'
-    apps = session.query(Application).all()
-    return render_template(html_file, apps=apps, app=app, base=base)
+    apps = session.query(Application)
+    return render_template(html_file, base=base, apps=apps, app=app)
 
 #Handler for creating a new app ###########################################################
 
 
 @app.route('/ubuntuapp/apps/newapp', methods=['GET', 'POST'])
 def newApp():
+    if 'username' not in login_session:
+        return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         newApp = Application(
             name=request.form['name'],
@@ -313,6 +290,8 @@ def newApp():
 
 @app.route('/ubuntuapp/apps/<int:id>/delete', methods=['GET', 'POST'])
 def deleteApp(id):
+    if 'username' not in login_session:
+        return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         print 'you pressed the confirm button'
         apps = session.query(Application).filter_by(id=id)
@@ -331,10 +310,13 @@ def deleteApp(id):
         return render_template(html, base=base, app=app)
 
 
-# Handler for editing an app ##############################################################
+# Handler for editing an app #
+# #############################################################
 
 @app.route('/ubuntuapp/apps/<int:id>/edit', methods=['GET', 'POST'])
 def editApp(id):
+    if 'username' not in login_session:
+        return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         print 'you pressed the confirm button'
         apps = session.query(Application).filter_by(id=id)
@@ -354,18 +336,29 @@ def editApp(id):
     html = 'editapp.html'
     apps = session.query(Application).filter_by(id=id)
     for app in apps:
-
-        print app.id
-        print app.name
-        return render_template(html, base=base, app=app)
+            print app.id
+            print app.name
+            return render_template(html, base=base, app=app)
 
 ############################################################################################
 
 
 @app.route('/ubuntuapps/apps/myapps')
 def myApps():
-    html_file = 'myapps.html'
-    return render_template(html_file, base=base)
+    if 'username' not in login_session:
+        return redirect('/ubuntuapp/login')
+    html_file = 'apps.html'
+    apps = session.query(Application).filter_by(user_id = login_session['user_id'])
+    print apps
+    for app in apps:
+        contentcreator = login_session['user_id']
+        print contentcreator
+        logged_user = app.user_id
+        print logged_user
+        return render_template(html_file, base=base, contentcreator=contentcreator, logged_user=logged_user, apps=apps, app=app)
+
+    else:
+        return render_template(html_file, base=base)
 
 
 
@@ -407,9 +400,40 @@ def showAppJSON(id):
     catalog = session.query(Application).filter_by(id=id).all()
     return jsonify(ItemCatalog=[i.serialize for i in catalog])
 
+
+@app.route('/ubuntuapp/JSON')
+def showAppsJSONJSON():
+    apps = session.query(Application).all()
+    return jsonify(applications=[r.serialize for r in apps])
+
+
+# Disconnect based on provider - Revoke a current user's token and reset their login_session #####
+
+@app.route('/ubuntuapp/disconnect')
+def disconnect():
+    if 'provider' in login_session:
+        if login_session['provider'] == 'google':
+            gdisconnect()
+            print login_session['gplus_id']
+            del login_session['gplus_id']
+            del login_session['access_token']
+            #print login_session['credentials']
+            #del login_session['credentials']
+        if login_session['provider'] == 'facebook':
+            fbdisconnect()
+            del login_session['facebook_id']
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        del login_session['user_id']
+        del login_session['provider']
+        flash("You have successfully been logged out.")
+        return redirect(url_for('showApps'))
+    else:
+        flash("You were not logged in")
+        return redirect(url_for('showApps'))
+
 ####################################################################################################
-
-
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True

@@ -9,27 +9,37 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}" />
-  <title class="app-title-head">/Ubuntu/Apps/</title>
+  <title class="app-title-head">/Ubuntu/Apps</title>
 </head>
 
 <body>
-  <a href="/ubuntuapp" class="main-title">/Ubuntu/Apps/</a>
-
+  <a href="/ubuntuapp" class="main-title">Ubuntu/Apps</a>
+  <p>
       <div class="home-options">
-          <a class="home-link" href="/ubuntuapp">Home</a>
+
+
+          <a class="new-app-link" href="/ubuntuapp/apps/newapp">Create App</a>
+          |
+          <a class="my-apps" href="/ubuntuapps/apps/myapps">My Apps </a>
           |
           {%if 'username' not in session %}
-          <a class="login-link" href="/login">login</a>
+          <a class="login-link" href="/ubuntuapp/login">login</a>
           {% else %}
-          <a class="new-app-link" href="/ubuntuapp/apps/newapp">New App</a>
-          <!--|
-          <a class="new-category-link" href="/ubuntuapp/categories/newcategory"> New Category </a>-->
-          <p>
-          Hello {% print session.username %}!
-          (<a class="login-link" href="/disconnect">logout</a>) <a class="my-apps" href="/ubuntuapps/apps/myapps">My Apps </a>
+          (<a class="login-link" href="/ubuntuapp/disconnect">logout</a>)
           {% endif %}
+          </div>
+      <div class="appcategories">
+          <a class="home-link" href="/ubuntuapp">All Apps</a>
+          |
+          <a class="categories-media" href="/apps/media"> Media </a>
+          |
+          <a class="categories-development" href="/apps/development"> Development </a>
+          |
+          <a class="categories-tools" href="/apps/tools"> Tools / Utilities </a>
+          |
+          <a class="categories-fixes" href="/apps/fixes"> Fixes </a>
       </div>
-          <br>
+      <hr class="start-the-apps">
   <p>
   {{ categories }}
   <p>
@@ -37,7 +47,6 @@
   {% block content %}
   {% endblock %}
   </div>
-
 </body>
 
 </html>

@@ -1,100 +1,28 @@
 {% extends base %}
 {% block content %}
 
-
-<p>
-  <form action="#" method = "post">
-  				<div class="form-group">
-  					<label for="name">Name:</label>
-  					<input type ="text" maxlength="250" class="form-control" name="name" placeholder="Name of the app">
-
-            <p>
-
-  					<label for="description">Description:</label>
-  					<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the app"></textarea>
-
-            <p>
-
-  					<label for="aptget">aptget command:</label>
-  					<div class="input-group">
-  						<div class="input-group-addon">$</div>
-  						<input type ="text" class="form-control" maxlength="250" name="aptget" placeholder="Terminal Command">
-  					</div>
-
-            <p>
-
-            <label for="course">Repository:</label>
-  					<input type ="text" class="form-control" maxlength="10" name="repository" placeholder="Terminal Command">
-  					</div>
-
-            <p>
-
-  					<div class="radio">
-  					  <label>
-  					    <input type="radio" name="category" id="media" value="media">media
-  					  </label>
-  					</div>
-  					<div class="radio">
-  					  <label>
-  					    <input type="radio" name="category" id="development" value="development">development
-  					  </label>
-  					</div>
-  					<div class="radio">
-  					  <label>
-  					    <input type="radio" name="category" id="tools" value="tools">Tools / Utilities
-  					  </label>
-  					</div>
-  					<div class="radio">
-  					  <label>
-  					    <input type="radio" name="category" id="fixes" value="fixes">fixes
-  					  </label>
-  					</div>
-  					<button type="submit" class="btn btn-default" id="submit" type="submit">
-  					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
-  				</div>
-  			</form>
-
-
+<div class="newapp-border">
+  <form action="#" class="newapp-form" method = "post">
+  		<div class="form-group">
+  			<label for="name" class="newapp-name">Name:</label>
+  			<input type ="text" maxlength="250"  name="name" placeholder="Name of the app">
+        <p>
+        <label for="course" class="newapp-repo">Repository:</label>
+    		<input type ="text" class="form-control" maxlength="250" name="repository" placeholder="Repository">
+        <p>
+  			<label for="aptget" class="newapp-command">Command:</label>
+  			<input type ="text" class="form-control" maxlength="250" name="aptget" placeholder="Terminal Command">
+        <p>
+        <label for="description" class="newapp-description">Description:</label>
+        <textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the app"></textarea>
+        <p>
+  			<div class="radio"><label><input type="radio" name="category" id="media" value="media">media</label></div>
+  			<div class="radio"><label><input type="radio" name="category" id="development" value="development">development</label></div>
+  			<div class="radio"><label><input type="radio" name="category" id="tools" value="tools">Tools / Utilities</label></div>
+  			<div class="radio"><label><input type="radio" name="category" id="fixes" value="fixes">fixes</label></div>
+  			<button type="submit" class="newapp-submit" id="submit" type="submit">
+  			<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
+  		</div>
+  </form>
+</div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      Application Name:<div class="newapp-appname">
-        <input type="text" name="name" value=""></div>
-      Repository:<div class="newapp-repository">
-        <input type="text" class="repository" value="">
-      </div>
-      apt-get Command:<div class="newapp-aptget">
-        <input type="text" name="aptget" value="">
-      </div>
-
-      Description:<div class="newapp-description">
-        <input type="text" name="description" value="">
-      </div>
-      Link to Manual:<div class="newapp-manuallink">
-        <input type="text" name="appmanual" value="">
-      </div>
-      <p>
-        <select class="newapp-categories" name="categories">
-          <option value="Development">Development</option>
-          <option value="Media">Media</option>
-          <option value="Tools">Tools</option>
-          <option value="Fixes">Fixes</option>
-        </select>
-      <p>
-      <input type="Submit" value='Create' class="newapp-submit">
