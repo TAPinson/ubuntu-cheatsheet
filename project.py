@@ -140,7 +140,6 @@ def gconnect():
         oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
-        print credentials, 'THE CREDENTIALS SHOULD BE TO THE LEFT OF THIS'
     except FlowExchangeError:
         print 'CHECK 3'
         response = make_response(
@@ -261,7 +260,14 @@ def showApps():
     #### HIDING THESE BUTTONS SHOULD QUERY SIMILARLY TO THE MYAPPS FUNCTION ###
     html_file = 'apps.html'
     apps = session.query(Application)
-    return render_template(html_file, base=base, apps=apps, app=app)
+    for app in apps:
+        originalAuthor = app.user_id
+
+        if 'username' not in login_session:
+            logged_user = None
+        else: logged_user = login_session['user_id']
+        print logged_user, ' is the logged in user'
+        return render_template(html_file, base=base, login_session=login_session, logged_user=logged_user, apps=apps, app=app)
 
 #Handler for creating a new app ###########################################################
 
@@ -292,6 +298,7 @@ def newApp():
 def deleteApp(id):
     if 'username' not in login_session:
         return redirect('/ubuntuapp/login')
+
     if request.method == 'POST':
         print 'you pressed the confirm button'
         apps = session.query(Application).filter_by(id=id)
@@ -305,9 +312,15 @@ def deleteApp(id):
     html = 'deleteapp.html'
     apps = session.query(Application).filter_by(id=id)
     for app in apps:
-        print app.id
-        print app.name
-        return render_template(html, base=base, app=app)
+        originalAuthor = app.user_id
+        print originalAuthor, 'is the original author'
+        print login_session['user_id'], 'is the logged in user_id'
+        if originalAuthor == login_session['user_id']:
+            print 'delete permission authorized for:', app.name
+            return render_template(html, base=base, app=app)
+        else:
+            print '>>>permission to delete',app.name,'declined<<<'
+            return render_template('error.html', base=base)
 
 
 # Handler for editing an app #
@@ -336,9 +349,14 @@ def editApp(id):
     html = 'editapp.html'
     apps = session.query(Application).filter_by(id=id)
     for app in apps:
-            print app.id
-            print app.name
-            return render_template(html, base=base, app=app)
+            originalAuthor = app.user_id
+            print originalAuthor
+            print login_session['user_id']
+            if originalAuthor == login_session['user_id']:
+                print app.name
+                return render_template(html, base=base, app=app)
+            else:
+                return render_template('error.html', base=base)
 
 ############################################################################################
 
@@ -349,17 +367,15 @@ def myApps():
         return redirect('/ubuntuapp/login')
     html_file = 'apps.html'
     apps = session.query(Application).filter_by(user_id = login_session['user_id'])
-    print apps
+    print apps, 'these are apps'
     for app in apps:
-        contentcreator = login_session['user_id']
+        logged_user = login_session['user_id']
+        contentcreator = app.user_id
         print contentcreator
-        logged_user = app.user_id
         print logged_user
-        return render_template(html_file, base=base, contentcreator=contentcreator, logged_user=logged_user, apps=apps, app=app)
-
+        return render_template(html_file, base=base, contentcreator=contentcreator, login_session=login_session, apps=apps, app=app)
     else:
-        return render_template(html_file, base=base)
-
+        return render_template(html_file, apps=apps, base=base)
 
 
 # Handlers for viewing apps by category ################################################################################

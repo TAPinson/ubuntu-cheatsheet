@@ -1,16 +1,15 @@
 {% extends base %}
 {% block content %}
 
-
-<p>
 {% for app in apps: %}
 <div class="apps-apps">
-  Name: {{ app.name }} <br>
+  Application: {{ app.name }} <br>
+  Category: {{app.category}}<br>
+  Repository: {% if app.repository != 'blank': %}<pre><code class="whitespace">{{app.repository}}</code></pre>{% endif %}<br>
+  Command: {% if app.repository != 'blank': %}<pre><code class="whitespace">{{app.aptget}}</code></pre>{% endif %}<br>
   Description: {{ app.description }} <br>
-  Command: {{app.aptget}} <br>
-  Repository: {{app.repository}} <br>
-  Category: {{app.category}} <br>
-  {% if contentcreator == logged_user: %}
+<p>
+  {% if app.user_id == login_session['user_id']: %}
     <div class="apps-applinks">
       <a href="/ubuntuapp/apps/{{app.id}}/edit" class="categories-edit">Update App</a>
       |
@@ -18,10 +17,6 @@
     </div>
   {% endif %}
 </div>
-
 {% endfor %}
 
 {% endblock %}
-<!--
-
--->

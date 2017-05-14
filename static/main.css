@@ -125,9 +125,9 @@ hr {
   color: #7d97ad;
 }
 
-.apps-divider {
-
-
+.whitespace {
+  background-color: #ffffff;
+  color: black;
 }
 
 /* end apps.html */
