@@ -2,6 +2,8 @@
 {% block content %}
 
 <body>
+<!--We'll use this to move the signin success / redirect page to the middle -->
+<div id="result" class="result"></div>
 
 <!-- GOOGLE PLUS SIGN IN-->
           <div id="signInButton" class="googleButton">
@@ -15,7 +17,7 @@
             data-approvalprompt="force">
           </span>
         </div>
-<div id="result"></div>
+
 <script>
 function signInCallback(authResult) {
   if (authResult['code']) {
@@ -102,6 +104,7 @@ function signInCallback(authResult) {
 </fb:login-button>
 </button>
 <!--END FACEBOOK SIGN IN -->
+
 </body>
 </html>
 {% endblock %}

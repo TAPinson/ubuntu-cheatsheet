@@ -27,6 +27,13 @@ hr {
   color: #7d97ad;
 }
 
+.userpicture {
+  max-width: 6%;
+  position: absolute;
+  right: 20%;
+  bottom: 85%;
+}
+
 .home-options {
   text-align: center;
 }
@@ -34,6 +41,18 @@ hr {
 .login-link {
   text-decoration: none;
   color: #7d97ad;
+  position: absolute;
+  bottom: 95%;
+  right: 20%;
+}
+
+.logout-link {
+  text-decoration: none;
+  color: #7d97ad;
+  position: absolute;
+  right: 27%;
+  bottom: 90%;
+  font-size: 13px;
 }
 
 .home-link {
@@ -69,11 +88,23 @@ hr {
 .my-apps {
   text-decoration: none;
   color: #7d97ad;
+  position: absolute;
+  bottom: 95%;
+  right: 27%;
 }
 
 .appcategories {
   text-align: center;
   margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+.warning {
+  max-width: 70%;
+  font-size: 12px;
+  font-style: italic;
+  margin-left: 17.5%;
+
 }
 
 .start-the-apps {
@@ -90,7 +121,14 @@ hr {
 
 .facebookButton {
   margin-left: 43.5%;
+  margin-bottom: 2%;
 }
+
+.result {
+  margin-left: 40%;
+  margin-bottom: 10%;
+}
+
 
 /* end login.html */
 

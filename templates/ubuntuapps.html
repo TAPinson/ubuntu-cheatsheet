@@ -15,18 +15,11 @@
 
 <body>
   <a href="/ubuntuapp" class="main-title">Ubuntu/Apps</a>
+  <div class="user_picture"><img class="userpicture" src="{{ session.picture }}"></div>
   <p>
       <div class="home-options">
-
-
-          <a class="new-app-link" href="/ubuntuapp/apps/newapp">Create App</a>
-          |
-          <a class="my-apps" href="/ubuntuapps/apps/myapps">My Apps </a>
-          |
           {%if 'username' not in session %}
           <a class="login-link" href="/ubuntuapp/login">login</a>
-          {% else %}
-          (<a class="login-link" href="/ubuntuapp/disconnect">logout</a>)
           {% endif %}
           </div>
       <div class="appcategories">
@@ -39,7 +32,16 @@
           <a class="categories-tools" href="/apps/tools"> Tools / Utilities </a>
           |
           <a class="categories-fixes" href="/apps/fixes"> Fixes </a>
+          {% if 'username' in session %}
+          |
+          <a class="new-app-link" href="/ubuntuapp/apps/newapp">Create App</a>
+          <a class="logout-link" href="/ubuntuapp/disconnect">(logout)</a>
+          <a class="my-apps" href="/ubuntuapps/apps/myapps">My Apps </a>
+          {% endif %}
       </div>
+      <div class="warning"> Warning: Users should verify the legitimacy of any
+        repositories before adding to their system. Failure to do so may result
+        in issues up to and including corruption of the linux kernel.</div>
       <hr class="start-the-apps">
   <p>
   {{ categories }}
