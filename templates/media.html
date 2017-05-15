@@ -3,11 +3,34 @@
 
 {% for app in apps: %}
 <div class="apps-apps">
-  Name: {{ app.name }} <br>
-  Description: {{ app.description }} <br>
-  Command: {{app.aptget}} <br>
-  Repository: {{app.repository}} <br>
-  Category: {{app.category}} <br>
+  <div class="media-appname"> {{ app.name }} </div>
+  <div class="media-category">{{app.category}}</div>
+  <div class="apps-repository">{% if app.repository != 'blank': %}
+      <pre>Repository: <code class="whitespace-a">{{app.repository}}</code></pre>{% endif %}
+      {% if app.repository == 'blank' or app.repository == 'Ubuntu': %}Repository: Ubuntu{% endif %}</div>
+      <div class="apps-command">{% if app.aptget != 'blank': %}
+          <pre>Command: <code class="whitespace">{{app.aptget}}</code></pre>{% endif %}
+      </div>
+  <div class="media-description">{{ app.description }} </div>
+
+  <label>
+    <div><img class="media-picture" src="{{ app.user.picture }}"></div>
+    <div class="apps-applinks">
+      {% if app.user_id == login_session['user_id']: %}
+      <a href="/ubuntuapp/apps/{{app.id}}/edit" class="categories-edit">Update App</a>
+      |
+      <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
+      |
+      <a href="/ubuntuapp/{{app.id}}/apps/JSON" class='categories-JSON'>JSON</a>
+      <p>
+      {% endif %}
+      <div class="media-author">Author: {{ app.user.name }}</div>
+    </div></label>
+
+  <p>
+
+
+
 </div>
 <p>
 {% endfor %}

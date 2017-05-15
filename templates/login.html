@@ -17,7 +17,6 @@
             data-approvalprompt="force">
           </span>
         </div>
-
 <script>
 function signInCallback(authResult) {
   if (authResult['code']) {
@@ -46,9 +45,7 @@ function signInCallback(authResult) {
       }
   }); } }
 </script>
-
 <!--END GOOGLE PLUS SIGN IN -->
-
 <!--FACEBOOK SIGN IN -->
 <script>
   window.fbAsyncInit = function() {
@@ -89,7 +86,6 @@ function signInCallback(authResult) {
          setTimeout(function() {
           window.location.href = "/ubuntuapp";
          }, 4000);
-
       } else {
         $('#result').html('Failed to make a server-side call. Check your configuration and console.');
          }
@@ -104,7 +100,7 @@ function signInCallback(authResult) {
 </fb:login-button>
 </button>
 <!--END FACEBOOK SIGN IN -->
-
 </body>
 </html>
+
 {% endblock %}

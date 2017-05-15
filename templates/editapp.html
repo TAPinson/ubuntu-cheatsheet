@@ -1,22 +1,16 @@
 {% extends base %}
 {% block content %}
 
-
-
  <div class="editapp-appname">You are editing the app:<br>
  {{app.name}}
  </div>
-
  <form action="#" method = "post" class="editapp-form">
       <label for="name">Description:</label>
       <input type ="text" maxlength="250" class="form-control" name="description" placeholder="{{app.description}}"><p>
-
       <label for="name">Command:</label>
       <input type ="text" maxlength="250" class="form-control" name="command" placeholder="{{app.aptget}}"><p>
-
       <label for="name">Repository:</label>
       <input type ="text" maxlength="250" class="form-control" name="repository" placeholder="{{app.repository}}"><p>
-
       <div class="radio">
         <label>
           <input type="radio" name="category" id="media" value="media">media
