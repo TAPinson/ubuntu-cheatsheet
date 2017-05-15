@@ -335,7 +335,8 @@ def deleteApp(id):
                 session.delete(app)
                 session.commit()
                 return redirect('/ubuntuapp/apps')
-            else: return render_template('error.html')
+            else:
+                return render_template('error.html')
     html = 'deleteapp.html'
     apps = session.query(Application).filter_by(id=id)
     for app in apps:
@@ -406,9 +407,9 @@ def myApps():
             print contentcreator
             print logged_user
             return render_template(html_file, base=base,
-                                contentcreator=contentcreator,
-                                login_session=login_session,
-                                apps=apps, app=app)
+                                   contentcreator=contentcreator,
+                                   login_session=login_session,
+                                   apps=apps, app=app)
     else:
         return render_template(html_file, apps=apps, base=base)
 
@@ -420,28 +421,32 @@ def showMedia():
     html_file = 'media.html'
     print 'check 1'
     apps = session.query(Application).filter_by(category='media').all()
-    return render_template(html_file, apps=apps, base=base, login_session=login_session)
+    return render_template(html_file, apps=apps, base=base,
+                           login_session=login_session)
 
 
 @app.route('/apps/development')
 def showDevelopment():
     html_file = 'media.html'
     apps = session.query(Application).filter_by(category='development').all()
-    return render_template(html_file, apps=apps, base=base, login_session=login_session)
+    return render_template(html_file, apps=apps, base=base,
+                           login_session=login_session)
 
 
 @app.route('/apps/tools')
 def showTools():
     html_file = 'media.html'
     apps = session.query(Application).filter_by(category='tools').all()
-    return render_template(html_file, apps=apps, base=base, login_session=login_session)
+    return render_template(html_file, apps=apps, base=base,
+                           login_session=login_session)
 
 
 @app.route('/apps/fixes')
 def showFixes():
     html_file = 'media.html'
     apps = session.query(Application).filter_by(category='fixes').all()
-    return render_template(html_file, apps=apps, base=base, login_session=login_session)
+    return render_template(html_file, apps=apps, base=base,
+                           login_session=login_session)
 
 # JSON APIs to view Application Information ##################################
 
@@ -451,10 +456,13 @@ def showAppJSON(id):
     catalog = session.query(Application).filter_by(id=id).all()
     return jsonify(ItemCatalog=[i.serialize for i in catalog])
 
+
 @app.route('/ubuntuapp/<int:id>/apps/<category>/JSON')
 def showAppCategory(id, category):
-    catalog = session.query(Application).filter_by(category=category, id=id).all()
+    catalog = session.query(Application).filter_by(category=category,
+                                                   id=id).all()
     return jsonify(ItemCatalog=[i.serialize for i in catalog])
+
 
 @app.route('/ubuntuapp/JSON')
 def showAppsJSONJSON():
@@ -467,4 +475,4 @@ def showAppsJSONJSON():
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)

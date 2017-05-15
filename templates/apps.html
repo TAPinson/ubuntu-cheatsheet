@@ -3,21 +3,28 @@
 
 {% for app in apps: %}
 <div class="apps-apps">
-  Application: {{ app.name }} <br>
-  Category: {{app.category}}<br>
-  Repository: {% if app.repository != 'blank' and app.repository != 'standard': %}<pre><code class="whitespace">{{app.repository}}</code></pre>{% endif %}{{app.repository}}<br>
+  <div class="apps-appname">{{ app.name }}</div>
+  <div class="apps-appcategory">{{app.category}}</div>
 
-  Command: {% if app.repository != 'blank': %}<pre><code class="whitespace">{{app.aptget}}</code></pre>{% endif %}<br>
-  Description: {{ app.description }} <br>
+
+  <div class="apps-description">{{ app.description }}</div>
 <p>
-  {% if app.user_id == login_session['user_id']: %}
+
     <div class="apps-applinks">
+      <a href="/ubuntuapp/{{app.id}}/apps/JSON" class='categories-JSON'>JSON</a>
+      {% if app.user_id == login_session['user_id']: %}
+      |
       <a href="/ubuntuapp/apps/{{app.id}}/edit" class="categories-edit">Update App</a>
       |
       <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
+      |
+      {% endif %}
+
     </div>
-  {% endif %}
+
+
 </div>
+
 {% endfor %}
 
 {% endblock %}
