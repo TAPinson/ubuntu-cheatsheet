@@ -3,6 +3,17 @@
 
 {% for app in apps: %}
 <div class="apps-apps">
+  <div><img class="media-picture" src="{{ app.user.picture }}"></div>
+  <div class="apps-applinks">
+    {% if app.user_id == login_session['user_id']: %}
+    <a href="/ubuntuapp/apps/{{app.id}}/edit" class="categories-edit">Update App</a>
+    |
+    <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
+    |
+    <a href="/ubuntuapp/{{app.id}}/apps/JSON" class='categories-JSON'>JSON</a>
+    {% endif %}
+    <div class="media-author">Author: {{ app.user.name }}</div>
+  </div></label>
   <div class="media-appname"> {{ app.name }} </div>
   <div class="media-category">{{app.category}}</div>
   <div class="apps-repository">{% if app.repository != 'blank': %}
@@ -13,17 +24,7 @@
       </div>
   <div class="media-description">{{ app.description }} </div>
   <label>
-    <div><img class="media-picture" src="{{ app.user.picture }}"></div>
-    <div class="apps-applinks">
-      {% if app.user_id == login_session['user_id']: %}
-      <a href="/ubuntuapp/apps/{{app.id}}/edit" class="categories-edit">Update App</a>
-      |
-      <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
-      |
-      <a href="/ubuntuapp/{{app.id}}/apps/JSON" class='categories-JSON'>JSON</a>
-      {% endif %}
-      <div class="media-author">Author: {{ app.user.name }}</div>
-    </div></label>
+
   <p>
 </div>
 <p>
