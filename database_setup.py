@@ -31,6 +31,7 @@ class Category(Base):
             'id': self.id,
         }
 
+
 class Application(Base):
     __tablename__ = 'Application'
     name = Column(String(80), nullable=False)
@@ -44,15 +45,12 @@ class Application(Base):
 
     @property
     def serialize(self):
-        """Return object data in easily serializeable format"""
-        return {
-            'name': self.name,
-            'description': self.description,
-	        'repository': self.repository,
-	        'aptget': self.aptget,
-            'id': self.id,
-            'category': self.category,
-        }
+        return {'name': self.name,
+                'description': self.description,
+                'repository': self.repository,
+                'aptget': self.aptget,
+                'id': self.id,
+                'category': self.category}
 
 
 engine = create_engine('sqlite:///ubuntuapps.db')

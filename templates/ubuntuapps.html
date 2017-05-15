@@ -17,7 +17,6 @@
 <body>
 <a href="/ubuntuapp" class="main-title">Ubuntu/Apps</a>
 <div>
-
   {% if 'username' in session %}
   <a class="new-app-link" href="/ubuntuapp/apps/newapp">Create App</a>
   <a class="my-apps" href="/ubuntuapps/apps/myapps">My Apps </a>
@@ -41,13 +40,11 @@
           <a class="categories-tools" href="/apps/tools"> Tools / Utilities </a>
           |
           <a class="categories-fixes" href="/apps/fixes"> Fixes </a>
-
       </div>
       <div class="warning"> Warning: Users should verify the legitimacy of any
         repositories before adding to their system. Failure to do so may result
         in issues up to and including corruption of the linux kernel.</div>
       <hr class="start-the-apps">
-  <p>
   {{ categories }}
   <p>
   <div id="content">
@@ -55,5 +52,4 @@
   {% endblock %}
   </div>
 </body>
-
 </html>

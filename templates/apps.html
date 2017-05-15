@@ -1,15 +1,12 @@
 {% extends base %}
 {% block content %}
-
 {% for app in apps: %}
+
 <div class="apps-apps">
   <div class="apps-appname">{{ app.name }}</div>
   <div class="apps-appcategory">{{app.category}}</div>
-
-
   <div class="apps-description">{{ app.description }}</div>
 <p>
-
     <div class="apps-applinks">
       <a href="/ubuntuapp/{{app.id}}/apps/JSON" class='categories-JSON'>JSON</a>
       {% if app.user_id == login_session['user_id']: %}
@@ -19,12 +16,8 @@
       <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
       |
       {% endif %}
-
     </div>
-
-
 </div>
 
 {% endfor %}
-
 {% endblock %}

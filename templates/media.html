@@ -12,7 +12,6 @@
           <pre>Command: <code class="whitespace">{{app.aptget}}</code></pre>{% endif %}
       </div>
   <div class="media-description">{{ app.description }} </div>
-
   <label>
     <div><img class="media-picture" src="{{ app.user.picture }}"></div>
     <div class="apps-applinks">
@@ -22,15 +21,10 @@
       <a href="/ubuntuapp/apps/{{app.id}}/delete" class="categories-delete">Delete App</a>
       |
       <a href="/ubuntuapp/{{app.id}}/apps/JSON" class='categories-JSON'>JSON</a>
-      <p>
       {% endif %}
       <div class="media-author">Author: {{ app.user.name }}</div>
     </div></label>
-
   <p>
-
-
-
 </div>
 <p>
 {% endfor %}
