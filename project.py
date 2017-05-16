@@ -315,8 +315,6 @@ def showApps():
 @app.route('/ubuntuapp/apps/newapp', methods=['GET', 'POST'])
 @login_required
 def newApp():
-    #if 'username' not in login_session:
-    #    return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         newApp = Application(
             name=request.form['name'],
@@ -337,9 +335,8 @@ def newApp():
 
 
 @app.route('/ubuntuapp/apps/<int:id>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteApp(id):
-    if 'username' not in login_session:
-        return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         apps = session.query(Application).filter_by(id=id)
         if apps is not None:
@@ -366,9 +363,8 @@ def deleteApp(id):
 
 
 @app.route('/ubuntuapp/apps/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
 def editApp(id):
-    if 'username' not in login_session:
-        return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         print 'you pressed the confirm button'
         apps = session.query(Application).filter_by(id=id)
@@ -406,9 +402,8 @@ def editApp(id):
 
 
 @app.route('/ubuntuapps/apps/myapps')
+@login_required
 def myApps():
-    if 'username' not in login_session:
-        return redirect('/ubuntuapp/login')
     html_file = 'media.html'
     apps = session.query(Application)\
         .filter_by(user_id=login_session['user_id'])
