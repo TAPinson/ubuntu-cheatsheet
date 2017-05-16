@@ -12,6 +12,7 @@ import string
 import httplib2
 import json
 import requests
+from functools import wraps
 
 app = Flask(__name__)
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read
@@ -26,6 +27,16 @@ engine = create_engine('sqlite:///ubuntuapps.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect('/ubuntuapp/login')
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 # Create anti-forgery state token ############################################
 
@@ -302,9 +313,10 @@ def showApps():
 
 
 @app.route('/ubuntuapp/apps/newapp', methods=['GET', 'POST'])
+@login_required
 def newApp():
-    if 'username' not in login_session:
-        return redirect('/ubuntuapp/login')
+    #if 'username' not in login_session:
+    #    return redirect('/ubuntuapp/login')
     if request.method == 'POST':
         newApp = Application(
             name=request.form['name'],
